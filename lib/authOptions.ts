@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (
           (credentials?.username === "admin" && credentials?.password === "BEY$olution#1") ||
-          (credentials?.username === "biruk" && credentials?.password === "GloryGlory123")
+          (credentials?.username === "biruk" && credentials?.password === "ManUtd123")
         ) {
           return {
             id: "1",
