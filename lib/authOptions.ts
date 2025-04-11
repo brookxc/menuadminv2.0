@@ -11,8 +11,8 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (
-          (credentials?.username === "admin" && credentials?.password === "password") ||
-          (credentials?.username === "biruk" && credentials?.password === "password")
+          (credentials?.username === "admin" && credentials?.password === "BEY$olution#1") ||
+          (credentials?.username === "biruk" && credentials?.password === "GloryGlory123")
         ) {
           return {
             id: "1",
