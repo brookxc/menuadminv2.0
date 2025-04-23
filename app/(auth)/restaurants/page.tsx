@@ -1,6 +1,15 @@
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/options"
+import { redirect } from "next/navigation"
 import RestaurantList from "@/components/restaurant-list"
 
-export default function RestaurantsPage() {
+export default async function RestaurantsPage() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    redirect("/login") // Redirect unauthenticated users
+  }
+
   return (
     <div className="container mx-auto py-10">
       <div className="max-w-3xl mx-auto">

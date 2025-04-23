@@ -3,7 +3,20 @@ import Restaurant from "@/models/Restaurant"
 import DashboardStats from "@/components/dashboard-stats"
 import { unstable_noStore } from "next/cache"
 
+
+// app/dashboard/page.tsx (for example)
+
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/options"
+import { redirect } from "next/navigation"
+
+
 export default async function DashboardPage() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    redirect("/login") // redirect if not logged in
+  }
   // Prevent caching of this page
   unstable_noStore()
 

@@ -11,7 +11,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // This is a simple check. In a real app, you'd check against a database
-        if (credentials?.username === "admin" && credentials?.password === "password") {
+        if (credentials?.username === "admin" && credentials?.password === "BEY$olution#1") {
           return {
             id: "1",
             name: "Admin",
