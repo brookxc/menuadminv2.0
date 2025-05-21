@@ -7,6 +7,7 @@ type MenuPreviewProps = {
   restaurantInfo: {
     name: string
     logo: string | null
+    coverPhoto: string | null
     location: string
     description?: string
   }
@@ -24,6 +25,18 @@ type MenuPreviewProps = {
 export default function MenuPreview({ restaurantInfo, menuData }: MenuPreviewProps) {
   return (
     <div className="mx-auto max-w-4xl bg-white rounded-lg overflow-hidden shadow-lg">
+      {/* Cover Photo */}
+      {restaurantInfo.coverPhoto && (
+        <div className="relative h-48 w-full">
+          <Image
+            src={restaurantInfo.coverPhoto || "/placeholder.svg"}
+            alt={`${restaurantInfo.name} cover`}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+
       {/* Restaurant Header */}
       <div className="bg-primary/10 p-6 flex flex-col items-center text-center">
         {restaurantInfo.logo && (

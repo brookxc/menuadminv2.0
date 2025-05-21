@@ -32,7 +32,7 @@ const MenuCategorySchema = new mongoose.Schema({
   },
 })
 
-// Define the restaurant schema
+// Update the restaurant schema to include coverPhoto
 const RestaurantSchema = new mongoose.Schema(
   {
     name: {
@@ -48,6 +48,10 @@ const RestaurantSchema = new mongoose.Schema(
       default: "",
     },
     logo: {
+      type: String,
+      default: null,
+    },
+    coverPhoto: {
       type: String,
       default: null,
     },

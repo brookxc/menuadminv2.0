@@ -16,9 +16,11 @@ export default async function PublicMenuPage({ params }: { params: { id: string 
       notFound()
     }
 
+    // Update the restaurantInfo object to include coverPhoto
     const restaurantInfo = {
       name: restaurant.name || "Restaurant",
       logo: restaurant.logo || null,
+      coverPhoto: restaurant.coverPhoto || null,
       location: restaurant.location || "",
       description: restaurant.description || "",
       themeColor: restaurant.themeColor || "#3B82F6",
@@ -37,7 +39,7 @@ export default async function PublicMenuPage({ params }: { params: { id: string 
     return (
       <div className="container mx-auto py-10 px-4 text-center">
         <h1 className="text-2xl font-bold mb-4">Error Loading Menu</h1>
-        <p>Sorry, we couldn&apos;t load the menu. Please try again later.</p>
+        <p>Sorry, we couldn't load the menu. Please try again later.</p>
       </div>
     )
   }

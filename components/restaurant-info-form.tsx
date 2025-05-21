@@ -8,7 +8,7 @@ import Image from "next/image"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { MapPin, Upload, Palette } from "lucide-react"
+import { MapPin, Upload, Palette, ImageIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -37,6 +37,7 @@ type RestaurantInfoFormProps = {
     location: string
     description: string
     logo: string | null
+    coverPhoto: string | null
     themeColor?: string
   }
 }
@@ -45,6 +46,7 @@ export default function RestaurantInfoForm({ restaurant }: RestaurantInfoFormPro
   const router = useRouter()
   const { toast } = useToast()
   const [logoPreview, setLogoPreview] = useState<string | null>(restaurant?.logo || null)
+  const [coverPhotoPreview, setCoverPhotoPreview] = useState<string | null>(restaurant?.coverPhoto || null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -66,6 +68,7 @@ export default function RestaurantInfoForm({ restaurant }: RestaurantInfoFormPro
         location: values.location,
         description: values.description || "",
         logo: logoPreview,
+        coverPhoto: coverPhotoPreview,
         themeColor: values.themeColor,
       }
 
@@ -133,6 +136,17 @@ export default function RestaurantInfoForm({ restaurant }: RestaurantInfoFormPro
     }
   }
 
+  const handleCoverPhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setCoverPhotoPreview(e.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   return (
     <Card>
       <CardContent className="pt-6">
@@ -195,6 +209,50 @@ export default function RestaurantInfoForm({ restaurant }: RestaurantInfoFormPro
                 </div>
               </div>
 
+              <div>
+                <label
+                  htmlFor="cover-photo"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Cover Photo
+                </label>
+                <div className="mt-2 flex flex-col gap-4">
+                  <div className="relative h-40 w-full overflow-hidden rounded-md border">
+                    {coverPhotoPreview ? (
+                      <Image
+                        src={coverPhotoPreview || "/placeholder.svg"}
+                        alt="Restaurant cover photo preview"
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-muted">
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => document.getElementById("cover-photo-upload")?.click()}
+                    >
+                      Upload Cover Photo
+                    </Button>
+                    <Input
+                      id="cover-photo-upload"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleCoverPhotoUpload}
+                    />
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Upload a wide image (16:9 ratio) for best results.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <FormField
                 control={form.control}
                 name="location"
@@ -251,7 +309,7 @@ export default function RestaurantInfoForm({ restaurant }: RestaurantInfoFormPro
                       </div>
                     </FormControl>
                     <p className="text-xs text-muted-foreground mt-1">
-                      This color will be used as the theme for your restaurant&apos;s menu display.
+                      This color will be used as the theme for your restaurant's menu display.
                     </p>
                     <FormMessage />
                   </FormItem>

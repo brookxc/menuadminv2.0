@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
       location: data.location,
       description: data.description || "",
       logo: data.logo || null,
+      coverPhoto: data.coverPhoto || null,
       themeColor: data.themeColor || "#3B82F6", // Default blue if not provided
       menuCategories: data.menuCategories || [],
     })

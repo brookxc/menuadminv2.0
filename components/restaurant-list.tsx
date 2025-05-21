@@ -29,6 +29,7 @@ type Restaurant = {
   location: string
   description: string
   logo: string | null
+  coverPhoto: string | null
   themeColor?: string
   locked?: boolean
 }

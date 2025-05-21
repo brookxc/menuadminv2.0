@@ -39,6 +39,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
             location: data.location,
             description: data.description,
             logo: data.logo,
+            coverPhoto: data.coverPhoto,
             themeColor: data.themeColor,
           }
 
